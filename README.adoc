@@ -1,0 +1,14 @@
+== README
+
+- Clone https://github.com/PyretAutograder/pyret-autograder.
+
+- `cd pyret-autograder`
+
+- Copy each directory from _this_ repo to
+`pkgs/gradescope/examples`
+
+- Follow the Docker instructions in pyret-autograder to create
+and push an assignment, connect it on Gradescope, and submit
+`assignment.arr` as a submission.
+
+// last modified 2026-02-17
