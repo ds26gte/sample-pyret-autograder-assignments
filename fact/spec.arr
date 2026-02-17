@@ -1,0 +1,71 @@
+use context autograder-spec
+provide: spec end
+
+include graders
+import lists as L
+
+fun safe-divide(a :: Number, b :: Number, default :: Number) -> Number:
+  doc: "Divide the numbers if b != 0, otherwise return default"
+  if b == 0:
+    default
+  else:
+    a / b
+  end
+end
+
+fun mk-examplar(fn, num, dep, path, constr, typ):
+  points = safe-divide(2, num, 0)
+  L.build-list(
+    lam(i):
+      suff = num-to-string(i + 1)
+      constr(
+        fn + "-" + typ + "-" + suff, [list: dep], path,
+        fn + "/" + typ + "-" + suff + ".arr",
+        fn, points
+      )
+    end,
+    num
+  )
+end
+
+fun mk-wheats(fn :: String, num :: Number, dep :: String, path :: String):
+  mk-examplar(fn, num, dep, path, mk-wheat, "wheat")
+end
+
+fun mk-chaffs(fn :: String, num :: Number, dep :: String, path :: String):
+  mk-examplar(fn, num, dep, path, mk-chaff, "chaff")
+end
+
+fun test-design-recipe-for(
+  opts :: {
+    fn :: String, arity :: Number,
+    min-in :: Number, min-out :: Number,
+    wheats :: Number, chaffs :: Number
+  },
+  deps :: List<String>,
+  path :: String
+):
+  fn = opts.fn
+  [list:
+    mk-fn-def(fn + "-def", deps, path, fn, opts.arity),
+    mk-self-test(fn + "-self-test", [list: fn + "-def"], path, fn, 1),
+    mk-test-diversity(fn + "-diversity", [list: fn + "-def"], path, fn, opts.min-in, opts.min-out),
+    mk-functional(
+      fn + "-functional", [list: fn + "-def"], path,
+      "functionality.arr", fn + ": functionality",
+      4, some(fn))]
+  + mk-wheats(fn, opts.wheats, fn + "-diversity", path)
+  + mk-chaffs(fn, opts.chaffs, fn + "-diversity", path)
+end
+
+fun build-graders(path :: String):
+  [list:
+    mk-well-formed("wf", [list:], path),
+    mk-training-wheels("tw", [list: "wf"], path, false),
+    mk-fn-def("fact-def", [list: "tw"], path, "fact", 1),
+    mk-self-test("fact-self-test", [list: "fact-def"], path, "fact", 1),
+    # mk-test-diversity("fact-diveristy", [list: "fact-def"], path, "fact", 3, 2),
+    ]
+end
+
+spec = build-graders("submission/assignment.arr")
