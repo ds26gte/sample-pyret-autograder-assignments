@@ -3,10 +3,10 @@ provide:
   type *
 end
 
-# iterative (tail-recursive)
+# iterative, i.e., tail-recursive
 
-fun fact-iter(n :: Number, acc :: Number):
-  if n == 0: 
+fun fact-iter(n :: Number, acc :: Number) -> Number:
+  if n == 0:
     acc
   else:
     fact-iter(n - 1, n * acc)

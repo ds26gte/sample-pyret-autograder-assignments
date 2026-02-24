@@ -1,5 +1,5 @@
 fun fact(n :: Number) -> Number:
-  if n == 1: 0
+  if n <= 0: 1
   else: n * fact(n - 1)
   end
 where:

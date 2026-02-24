@@ -3,7 +3,7 @@ provide:
   type *
 end
 
-# (non-tail) recursive
+# non- tail-recursive
 
 fun fact(n :: Number) -> Number:
   if n == 0:
