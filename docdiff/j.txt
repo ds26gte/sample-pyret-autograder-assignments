@@ -1,0 +1,11 @@
+fail(srcloc(file:///nix/store/bsb1zjvp31k4xq0g57k7k6pwqmp1cwdh-pyret-autograder-gradescope-build/node_modules/pyret-autograder/src/core.arr, 190, 9, 5673, 190, 27, 5691),
+predicate-failure([list: 
+node(wf, [list: ], , {to-aggregate: , to-repl: }), 
+node(tw, [list: wf], , {to-aggregate: , to-repl: }), 
+node(fact-def, [list: tw], , {to-aggregate: , to-repl: }), 
+node(fact-self-test, [list: fact-def], , {to-aggregate: , to-repl: }),
+node(fact-diveristy, [list: fact-def], , {to-aggregate: , to-repl: }),
+node(fact-functional, [list: fact-def], , {to-aggregate: , to-repl: }),
+node(fact-wheat-1, [list: fact-diversity], , {to-aggregate: , to-repl: })
+],
+valid-dag))
